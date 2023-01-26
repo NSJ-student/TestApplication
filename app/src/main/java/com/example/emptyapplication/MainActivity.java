@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,13 +31,12 @@ public class MainActivity extends AppCompatActivity {
         final ListView devList = (ListView) findViewById(R.id.deviceList) ;
         devList.setAdapter(adapter) ;
 
-        final TextView testText = (TextView) findViewById(R.id.testTextView);
         Button btnRefresh = (Button) findViewById(R.id.btnRefresh) ;
         btnRefresh.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                testText.setText("Refresh") ;
-                testText.setTextColor(Color.rgb(255, 0, 0));
+                Toast.makeText(getApplicationContext(), "Toast...", Toast.LENGTH_SHORT).show();
+                System.out.println("toast Refresh");
             }
         }) ;
 
@@ -43,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         btnSelect.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                testText.setText("Select") ;
-                testText.setTextColor(Color.rgb(255, 255, 0));
-
                 count++;
+
+                Log.i("TEST", "Append " + Integer.toString(count));
+                System.out.println("toast Append " + Integer.toString(count));
                 // 아이템 추가.
                 items.add("LIST" + Integer.toString(count));
                 // listview 갱신

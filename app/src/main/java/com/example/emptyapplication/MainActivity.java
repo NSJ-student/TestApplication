@@ -2,6 +2,7 @@ package com.example.emptyapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.bluetooth.BluetoothDevice;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,5 +67,60 @@ public class MainActivity extends AppCompatActivity {
                 inputText.setText("") ;
             }
         }) ;
+
+        BluetoothSerialClient client = BluetoothSerialClient.getInstance();
+        if(client == null) {
+            // 블루투스를 사용할 수 없는 장비일 경우 null.
+            Toast.makeText(getApplicationContext(), "블루투스를 사용할 수 없는 기기입니다.", Toast.LENGTH_LONG).show();
+        }
+        if(!client.isEnabled()) {
+            // 블루투스 사용을 활성화 한다.
+            // 사용자에게 블루투스 사용을 묻는 시스템 창을 출력하게 된다.
+            //블루투스가 사용가능한 상태이면 무시한다.
+            client.enableBluetooth(MainActivity.this,
+                    new BluetoothSerialClient.OnBluetoothEnabledListener() {
+                        @Override
+                        public void onBluetoothEnabled(boolean success) {
+                            // sucess 가 false 일 경우 사용자가 블루투스 사용하기를 희망하지 않음.
+                        }
+                    });
+        }
+
+        final ArrayList<BluetoothDevice> deviceList = new ArrayList<BluetoothDevice>();
+        // 이미 페어링된 디바이스 리스트를 가져온다.
+        Set<BluetoothDevice> pairedDevices =  client.getPairedDevices();
+        deviceList.addAll(pairedDevices);
+        // 근처 디바이스를 스캔한다.
+        client.scanDevices(this, new BluetoothSerialClient.OnScanListener() {
+            @Override
+            public void onStart() {
+                // 스캔 시작.
+            }
+
+            @Override
+            public void onFoundDevice(BluetoothDevice bluetoothDevice) {
+                // 스캔이 완료된 디바이스를 받아온다.
+                if(deviceList.contains(bluetoothDevice)) {
+                    deviceList.remove(bluetoothDevice);
+                }
+                deviceList.add(bluetoothDevice);
+                try {
+                    // 아이템 추가.
+                    items.add(bluetoothDevice.getName());
+                    // listview 갱신
+                    adapter.notifyDataSetChanged();
+                }
+                catch(SecurityException e) {
+                    // TODO
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                // 스캔 종료.
+            }
+        });
+        // 아래와 같이 스캔 도중에 취소할 수 있다.
+        //client.cancelScan(this)
     }
 }

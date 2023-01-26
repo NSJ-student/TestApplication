@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // hide appbar
+        getSupportActionBar().hide();
 
         count = 0;
         // 빈 데이터 리스트 생성.

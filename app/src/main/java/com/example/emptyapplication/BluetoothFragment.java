@@ -62,16 +62,25 @@ public class BluetoothFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_bluetooth, container, false);
+
         count = 0;
         // 빈 데이터 리스트 생성.
         final ArrayList<String> items = new ArrayList<String>() ;
         // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
         final ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_single_choice, items) ;
         // listview 생성 및 adapter 지정.
-        final ListView devList = (ListView) getView().findViewById(R.id.deviceList) ;
+        final ListView devList = (ListView) v.findViewById(R.id.deviceList) ;
         devList.setAdapter(adapter) ;
 
-        Button btnRefresh = (Button) getView().findViewById(R.id.btnRefresh) ;
+        Button btnRefresh = (Button) v.findViewById(R.id.btnRefresh) ;
         btnRefresh.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +89,7 @@ public class BluetoothFragment extends Fragment {
             }
         }) ;
 
-        Button btnSelect = (Button) getView().findViewById(R.id.btnSelect) ;
+        Button btnSelect = (Button) v.findViewById(R.id.btnSelect) ;
         btnSelect.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,13 +103,7 @@ public class BluetoothFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         }) ;
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bluetooth, container, false);
+        return v;
     }
 }

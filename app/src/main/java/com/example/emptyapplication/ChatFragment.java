@@ -56,9 +56,17 @@ public class ChatFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        final TextView inputText = (TextView) getView().findViewById(R.id.singleLineInput);
-        final TextView textLog = (TextView) getView().findViewById(R.id.textLog);
-        Button btnEnter = (Button) getView().findViewById(R.id.btnEnter) ;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_chat, container, false);
+
+        final TextView inputText = (TextView) v.findViewById(R.id.singleLineInput);
+        final TextView textLog = (TextView) v.findViewById(R.id.textLog);
+        Button btnEnter = (Button) v.findViewById(R.id.btnEnter) ;
         btnEnter.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,12 +74,7 @@ public class ChatFragment extends Fragment {
                 inputText.setText("") ;
             }
         }) ;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        return v;
     }
 }

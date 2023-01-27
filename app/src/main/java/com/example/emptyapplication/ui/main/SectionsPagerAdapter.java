@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.emptyapplication.R;
+import com.example.emptyapplication.ChatFragment;
+import com.example.emptyapplication.BluetoothFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -29,7 +31,18 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return com.example.emptyapplication.ui.main.PlaceholderFragment.newInstance(position + 1);
+        if(position == 0)
+        {
+            return BluetoothFragment.newInstance("bluetooth", "test");
+        }
+        else if(position == 1)
+        {
+            return ChatFragment.newInstance("chat", "test");
+        }
+        else
+        {
+            return null;
+        }
     }
 
     @Nullable

@@ -239,7 +239,7 @@ public class BluetoothFragment extends Fragment {
             final Method m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", UUID.class);
             return (BluetoothSocket) m.invoke(device, BT_MODULE_UUID);
         } catch (Exception e) {
-            Log.e(TAG, "Could not create Insecure RFComm Connection",e);
+            Toast.makeText(getContext(), "Could not create Insecure RFComm Connection", Toast.LENGTH_SHORT).show();
         }
         return  device.createRfcommSocketToServiceRecord(BT_MODULE_UUID);
     }

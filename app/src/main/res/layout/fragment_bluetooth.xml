@@ -11,13 +11,12 @@
     tools:context=".BluetoothFragment">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
-        android:text="Device List"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold"
+        android:text="Paired Device"/>
 
     <ListView
         android:id="@+id/deviceList"
@@ -29,6 +28,35 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="left"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/deviceList"
+        tools:layout_editor_absoluteX="1dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:text="Status: "/>
+
+        <TextView
+            android:id="@+id/bluetooth_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:layout_marginTop="5dp"
+            android:text="Bluetooth Status>"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"

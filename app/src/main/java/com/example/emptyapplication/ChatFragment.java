@@ -26,6 +26,10 @@ public class ChatFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private TextView inputText;
+    public TextView textLog;
+    public Button btnEnter;
+
     public ChatFragment() {
         // Required empty public constructor
     }
@@ -64,17 +68,29 @@ public class ChatFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        final TextView inputText = (TextView) v.findViewById(R.id.singleLineInput);
-        final TextView textLog = (TextView) v.findViewById(R.id.textLog);
-        Button btnEnter = (Button) v.findViewById(R.id.btnEnter) ;
+        inputText = (TextView) v.findViewById(R.id.singleLineInput);
+        textLog = (TextView) v.findViewById(R.id.textLog);
+        btnEnter = (Button) v.findViewById(R.id.btnEnter) ;
+
         btnEnter.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Bundle result = new Bundle();
+                result.putString("bundleKey", inputText.getText()+"");
+                // The child fragment needs to still set the result on its parent fragment manager
+                getParentFragmentManager().setFragmentResult("messageWriting", result);
+
                 textLog.append(inputText.getText() + "\n");
                 inputText.setText("") ;
             }
         }) ;
         // Inflate the layout for this fragment
         return v;
+    }
+
+    public void setRecvMessage(String s)
+    {
+        textLog.append(s);
     }
 }

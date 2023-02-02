@@ -12,4 +12,8 @@
     <string name="show_paired_devices">Show Paired Devices</string>
     <string name="ErrSockCrea">Socket creation failed</string>
     <string name="cConnet">Connecting…</string>
+    <string name="sBTdevNF">"Bluetooth device not found!"</string>
+    <string name="sBTstaNF">Status: Bluetooth not found</string>
+    <string name="BTconnFail">Connection Failed</string>
+    <string name="BTConnected">Connected to Device: </string>
 </resources>
